@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="assets/css/management_panel.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+</head>
+<body>
+
+<a href="/" class="button">Inicio</a>
+
+<form method="post" class="form-centro">
+    <select name="ids">
+        {% for id in ids %}
+        <option value="{{ id }}" {% if id in selecionados %}selected{% endif %}>{{ id }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <ul class="actions">
+        <li>
+            <button type="submit" class="button">Buscar Fundo</button>
+            <button name="atualiza_preco" type="submit" class="button primary">Atualizar Preços</button>
+        </li>
+    </ul>
+</form>
+
+<ul>
+    <h4>Total em BPS: {{ bps }}</h4>
+    <button onclick="exportToExcel()" class="button">Exportar</button>
+    {{ table | safe }}
+    <script>
+        $(document).ready(function () {
+            $('.data').DataTable({pageLength: 200});
+        });
+    </script>
+
+    <script>
+        function exportToExcel() {
+          var table = document.getElementById("table");
+          var workbook = XLSX.utils.table_to_book(table, {sheet:"Sheet 1"});
+          XLSX.writeFile(workbook, "PnL.xlsx");
+        }
+    </script>
+</ul>
+</body>
+</html>

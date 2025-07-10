@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <h1 class="major">Entrar</h1>
+
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="fields">
+                        <div class="field">
+                            {{ form.email.label }}
+                            {{ form.email }}
+                            {% for error in form.email.errors %}
+                                <small class="text-danger">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                        <div class="field">
+                            {{ form.password.label }}
+                            {{ form.password }}
+                            {% for error in form.password.errors %}
+                                <small class="text-danger">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li>{{ form.submit(class="primary") }}</li>
+                    </ul>
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>

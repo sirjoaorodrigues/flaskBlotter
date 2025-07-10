@@ -1,0 +1,93 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f8ff; /* azul bem claro */
+    color: #083c5a;
+    margin: 40px;
+}
+
+h2 {
+    color: #0077b6; /* azul vibrante */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #b3d7f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 119, 182, 0.1);
+    max-width: 500px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #91c9f7;
+    border-radius: 4px;
+    background-color: #e1f0fb;
+    color: #083c5a;
+    margin-bottom: 15px;
+}
+
+ul.actions {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+ul.actions li {
+    margin-top: 10px;
+}
+
+table.dataTable {
+    margin-top: 30px;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.dataTable th,
+table.dataTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table.dataTable th {
+    background-color: #caf0f8; /* azul pastel */
+    color: #083c5a;
+}
+
+table.dataTable tr:nth-child(even) {
+    background-color: #e9f7fc;
+}
+
+table.dataTable tr:hover {
+    background-color: #d0effa;
+}
+
+.form-centro {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.button {
+    background-color: #1e3a8a; /* Azul escuro */
+    color: #ffffff; /* Texto branco */
+    border: none;
+    border-radius: 8px;
+    padding: 0.75em 2em;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+    background-color: #1d4ed8; /* Um tom mais claro no hover */
+    transform: translateY(-2px);
+}

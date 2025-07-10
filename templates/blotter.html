@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Boletador de Investimentos</title>
+  <link rel="stylesheet" href="assets/css/blotter.css"/>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Boletador Daycoval Asset</h1>
+    <div class="card">
+      <h2>Nova Boleta</h2>
+      <form method="POST">
+        <label>Ativo:</label>
+        <input type="text" name="ativo" required>
+
+        <label>Fundo:</label>
+        <select name="fundo" required>
+          <option value="9735925">Dayc Arbitragem</option>
+          <option value="111376">Multiestrategia</option>
+          <option value="189529">Ibovespa</option>
+          <option value="306274">ALOCACAO</option>
+          <option value="1006215">BDR</option>
+          <option value="2200899">ELETROBRAS</option>
+          <option value="10553193">TOP JUROS</option>
+          <option value="152196">IRFM1</option>
+          <option value="8366977">SOCJOV II</option>
+        </select>
+
+        <label>Estratégia:</label>
+        <input type="text" name="estrategia">
+
+        <label>Quantidade:</label>
+        <input type="number" name="quantidade" step="any" required>
+
+        <label>Preço/Taxa:</label>
+        <input type="number" name="preco" step="0.01" required>
+
+        <label>Data:</label>
+        <input type="date" name="data" required>
+
+        <button type="submit">Boletar</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Importar Boletas via Excel</h2>
+      <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xlsx" required>
+        <button type="submit">Importar Excel</button>
+            <a href="{{ url_for('static', filename='modelo.xlsx') }}" download>
+      <button type="button">Baixar modelo Excel</button>
+    </a>
+      </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="messages">
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% endwith %}
+    </div>
+    <div class="card">
+      <h2>Investimentos Boletados</h2>
+      <table id="tabela-boletas">
+        <thead>
+        <button onclick="exportToExcel()" class="button">Exportar Boletas</button>
+          <tr>
+            <th>Ativo</th>
+            <th>Quantidade</th>
+            <th>Fundo</th>
+            <th>Estratégia</th>
+            <th>Preço/Taxa</th>
+            <th>Data</th>
+            <th>Trader</th>
+            <th>Ação Boleta</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in boletos %}
+          <tr>
+            <td>{{ b.ativo }}</td>
+            <td>{{ b.quantidade }}</td>
+            <td>{{ b.fundo }}</td>
+            <td>{{ b.estrategia }}</td>
+            <td>{{"%.2f"|format(b.preco) }}</td>
+            <td>{{ b.data }}</td>
+            <td>{{ b.user }}</td>
+            <td>
+              <form action="{{ url_for('excluir', id=b.id) }}" method="POST" onsubmit="return confirm('Deseja realmente excluir esta boleta?');">
+                <button type="submit" class="btn-danger">Excluir</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+    function exportToExcel() {
+      var table = document.getElementById("tabela-boletas");
+      var workbook = XLSX.utils.table_to_book(table, {sheet:"Sheet 1"});
+      XLSX.writeFile(workbook, "boletas.xlsx");
+    }
+</script>
+
+
+<script>
+  $(document).ready(function() {
+    $('#tabela-boletas').DataTable({
+      language: {
+        url: "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+      }
+    });
+  });
+</script>
+</body>
+</html>
